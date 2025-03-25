@@ -7,7 +7,6 @@
 
 namespace MapEditorReborn.Commands.ToolgunCommands
 {
-    using System;
     using API;
     using API.Features.Objects;
     using CommandSystem;
@@ -15,6 +14,7 @@ namespace MapEditorReborn.Commands.ToolgunCommands
     using Events.Handlers.Internal;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
 
     /// <summary>
     /// Command used for selecting the objects.
@@ -29,9 +29,6 @@ namespace MapEditorReborn.Commands.ToolgunCommands
 
         /// <inheritdoc/>
         public string Description => "Selects the object which you are looking at.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

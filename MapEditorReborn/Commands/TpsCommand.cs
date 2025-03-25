@@ -1,8 +1,8 @@
 ﻿namespace MapEditorReborn.Commands
 {
-    using System;
     using CommandSystem;
     using Exiled.API.Features;
+    using System;
 
     [CommandHandler(typeof(ClientCommandHandler))]
     public class TpsCommand : ICommand
@@ -15,9 +15,6 @@
 
         /// <inheritdoc/>
         public string Description => "Shows the current TPS.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

@@ -7,8 +7,6 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Linq;
     using API.Enums;
     using CommandSystem;
     using Events.EventArgs;
@@ -16,6 +14,8 @@ namespace MapEditorReborn.Commands.UtilityCommands
     using Exiled.API.Features;
     using Exiled.API.Features.Items;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Linq;
     using static API.API;
     using Firearm = Exiled.API.Features.Items.Firearm;
 
@@ -32,9 +32,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Tool gun for spawning and editing objects.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -85,9 +82,9 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
             Item toolgun = player.AddItem(ItemType.GunCOM15);
             Firearm firearm = toolgun as Firearm;
-			firearm.MagazineAmmo = 2;
-			firearm.AddAttachment(InventorySystem.Items.Firearms.Attachments.AttachmentName.SoundSuppressor);
-			firearm.AddAttachment(InventorySystem.Items.Firearms.Attachments.AttachmentName.Flashlight);
+            firearm.MagazineAmmo = 2;
+            firearm.AddAttachment(InventorySystem.Items.Firearms.Attachments.AttachmentName.SoundSuppressor);
+            firearm.AddAttachment(InventorySystem.Items.Firearms.Attachments.AttachmentName.Flashlight);
 
             // firearm.Base.Status = new FirearmStatus((byte)(firearm.MaxAmmo + 1), (FirearmStatusFlags)28, 77);
 

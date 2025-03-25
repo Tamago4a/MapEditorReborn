@@ -7,15 +7,12 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using global::MapEditorReborn.Interfaces;
+    using PlayerRoles;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using Exiled.API.Enums;
-    using NorthwoodLib.Pools;
-    using PlayerRoles;
     using Vanilla;
-    using YamlDotNet.Serialization;
 
     /// <summary>
     /// A tool used to save and load maps.
@@ -122,9 +119,31 @@ namespace MapEditorReborn.API.Features.Serializable
         public List<LockerSerializable> Lockers { get; private set; } = new();
 
         /// <summary>
-        /// Gets the list of <see cref="SchematicSerializable"/>/.
+        /// Gets the list of <see cref="SchematicSerializable"/>.
         /// </summary>
         public List<SchematicSerializable> Schematics { get; private set; } = new();
+
+        /// <summary>
+        /// Gets a list of all serializable objects <see cref="ISpawnManager"/>.
+        /// </summary>
+        public List<ISpawnManager> GetSerializedObjects()
+        {
+            var serializedObjects = new List<ISpawnManager>(Doors.Count + WorkStations.Count + ItemSpawnPoints.Count + PlayerSpawnPoints.Count + RagdollSpawnPoints.Count + ShootingTargets.Count + Primitives.Count + LightSources.Count + RoomLights.Count + Teleports.Count + Lockers.Count + Schematics.Count);
+            serializedObjects.AddRange(Doors);
+            serializedObjects.AddRange(ItemSpawnPoints);
+            serializedObjects.AddRange(LightSources);
+            serializedObjects.AddRange(Lockers);
+            serializedObjects.AddRange(PlayerSpawnPoints);
+            serializedObjects.AddRange(Primitives);
+            serializedObjects.AddRange(RagdollSpawnPoints);
+            serializedObjects.AddRange(RoomLights);
+            serializedObjects.AddRange(Schematics);
+            //If one teleport leads to another teleport, which is in a non-existent room, then in fact, MER does not transfer the player anywhere.
+            serializedObjects.AddRange(Teleports);
+            serializedObjects.AddRange(ShootingTargets);
+            serializedObjects.AddRange(WorkStations);
+            return serializedObjects;
+        }
 
         /// <summary>
         /// Removes every currently saved object from all objects' lists.
@@ -144,45 +163,5 @@ namespace MapEditorReborn.API.Features.Serializable
             Lockers.Clear();
             Schematics.Clear();
         }
-
-        [YamlIgnore]
-        public bool IsValid
-        {
-            get
-            {
-                if (_isValid != null)
-                    return _isValid.Value;
-
-                List<RoomType> roomTypes = ListPool<RoomType>.Shared.Rent(Doors.Count + WorkStations.Count + ItemSpawnPoints.Count + PlayerSpawnPoints.Count + RagdollSpawnPoints.Count + ShootingTargets.Count + Primitives.Count + LightSources.Count + RoomLights.Count + Teleports.Count + Lockers.Count + Schematics.Count);
-
-                roomTypes.AddRange(Doors.Select(x => x.RoomType));
-                roomTypes.AddRange(WorkStations.Select(x => x.RoomType));
-                roomTypes.AddRange(ItemSpawnPoints.Select(x => x.RoomType));
-                roomTypes.AddRange(PlayerSpawnPoints.Select(x => x.RoomType));
-                roomTypes.AddRange(RagdollSpawnPoints.Select(x => x.RoomType));
-                roomTypes.AddRange(ShootingTargets.Select(x => x.RoomType));
-                roomTypes.AddRange(Primitives.Select(x => x.RoomType));
-                roomTypes.AddRange(LightSources.Select(x => x.RoomType));
-                roomTypes.AddRange(RoomLights.Select(x => x.RoomType));
-                roomTypes.AddRange(Teleports.Select(x => x.RoomType));
-                roomTypes.AddRange(Schematics.Select(x => x.RoomType));
-
-                foreach (RoomType roomType in roomTypes)
-                {
-                    if (!API.SpawnedRoomTypes.Contains(roomType))
-                    {
-                        ListPool<RoomType>.Shared.Return(roomTypes);
-                        _isValid = false;
-                        return false;
-                    }
-                }
-
-                ListPool<RoomType>.Shared.Return(roomTypes);
-                _isValid = true;
-                return true;
-            }
-        }
-
-        private bool? _isValid;
     }
 }

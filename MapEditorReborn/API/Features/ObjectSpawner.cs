@@ -7,7 +7,6 @@
 
 namespace MapEditorReborn.API.Features
 {
-    using System;
     using Components;
     using Enums;
     using Events.EventArgs;
@@ -17,6 +16,7 @@ namespace MapEditorReborn.API.Features
     using Extensions;
     using Objects;
     using Serializable;
+    using System;
     using UnityEngine;
     using static API;
     using MapEditorObject = global::MapEditorReborn.API.Features.Objects.MapEditorObject;

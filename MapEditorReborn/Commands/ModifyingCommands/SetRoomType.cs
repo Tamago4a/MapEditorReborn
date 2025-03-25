@@ -7,8 +7,6 @@
 
 namespace MapEditorReborn.Commands.ModifyingCommands
 {
-    using System;
-    using System.Linq;
     using API.Extensions;
     using API.Features.Objects;
     using CommandSystem;
@@ -16,6 +14,8 @@ namespace MapEditorReborn.Commands.ModifyingCommands
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Linq;
     using static API.API;
 
     /// <summary>
@@ -31,9 +31,6 @@ namespace MapEditorReborn.Commands.ModifyingCommands
 
         /// <inheritdoc/>
         public string Description => "Sets the object's room type.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

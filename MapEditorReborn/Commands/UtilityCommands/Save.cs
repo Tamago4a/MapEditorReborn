@@ -7,11 +7,11 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
     using API.Features;
     using API.Features.Serializable;
     using CommandSystem;
     using Exiled.Permissions.Extensions;
+    using System;
 
     /// <summary>
     /// Command used for saving <see cref="MapSchematic"/>.
@@ -26,9 +26,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Saves the map.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

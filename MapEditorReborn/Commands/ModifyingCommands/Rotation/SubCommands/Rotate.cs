@@ -7,8 +7,6 @@
 
 namespace MapEditorReborn.Commands.ModifyingCommands.Rotation.SubCommands
 {
-    using System;
-    using System.Collections.Generic;
     using API.Extensions;
     using API.Features.Objects;
     using CommandSystem;
@@ -17,6 +15,8 @@ namespace MapEditorReborn.Commands.ModifyingCommands.Rotation.SubCommands
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
     using MEC;
+    using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using static API.API;
 
@@ -33,9 +33,6 @@ namespace MapEditorReborn.Commands.ModifyingCommands.Rotation.SubCommands
 
         /// <inheritdoc/>
         public string Description => string.Empty;
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

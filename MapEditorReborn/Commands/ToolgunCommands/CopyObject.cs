@@ -7,13 +7,13 @@
 
 namespace MapEditorReborn.Commands.ToolgunCommands
 {
-    using System;
     using API.Features.Objects;
     using CommandSystem;
     using Events.EventArgs;
     using Events.Handlers.Internal;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
 
     /// <summary>
     /// Command used for copying the objects.
@@ -28,9 +28,6 @@ namespace MapEditorReborn.Commands.ToolgunCommands
 
         /// <inheritdoc/>
         public string Description => "Copies the object which you are looking at.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

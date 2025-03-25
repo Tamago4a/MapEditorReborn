@@ -1,11 +1,14 @@
 ﻿namespace MapEditorReborn.API.Features.Serializable
 {
-    using System.Collections.Generic;
     using Enums;
     using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
+    using System.Collections.Generic;
     using YamlDotNet.Serialization;
+    using static API;
 
-    public class SerializableTeleport : SchematicBlockData
+    public class SerializableTeleport : SchematicBlockData, ISpawnManager
     {
         public List<TargetTeleporter> TargetTeleporters { get; set; } = new()
         {
@@ -66,5 +69,12 @@
 
         [YamlIgnore]
         public override Dictionary<string, object> Properties { get; set; }
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a teleporter at {this.Position}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnTeleport(this));
+        }
     }
 }

@@ -7,9 +7,6 @@
 
 namespace MapEditorReborn.Events.Handlers.Internal
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
     using API.Enums;
     using API.Features;
     using API.Features.Objects;
@@ -25,8 +22,10 @@ namespace MapEditorReborn.Events.Handlers.Internal
     using Exiled.Events.EventArgs.Player;
     using Exiled.Loader;
     using Interactables.Interobjects.DoorUtils;
-    using MapGeneration.Distributors;
     using MEC;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
     using UnityEngine;
     using static API.API;
     using Config = Configs.Config;
@@ -80,7 +79,7 @@ namespace MapEditorReborn.Events.Handlers.Internal
             if (doorObject.Base.IgnoredDamageSources.HasFlagFast(DoorDamageType.Weapon) || doorObject._remainingHealth <= 0f)
                 return;
 
-           // doorObject._remainingHealth -= firearm.Base.BaseStats.DamageAtDistance(firearm.Base, raycastHit.distance) * 0.1f;
+            // doorObject._remainingHealth -= firearm.Base.BaseStats.DamageAtDistance(firearm.Base, raycastHit.distance) * 0.1f;
             if (doorObject._remainingHealth <= 0f)
                 doorObject.BreakDoor();
 

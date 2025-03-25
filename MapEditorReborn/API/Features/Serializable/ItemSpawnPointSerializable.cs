@@ -7,13 +7,16 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using System;
+    using static API;
 
     /// <summary>
     /// A tool used to spawn and save ItemSpawnpoints to a file.
     /// </summary>
     [Serializable]
-    public class ItemSpawnPointSerializable : SerializableObject
+    public class ItemSpawnPointSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the name of the item that will be spawned.
@@ -48,5 +51,12 @@ namespace MapEditorReborn.API.Features.Serializable
         /// Gets or sets a value indicating whether the spawned <see cref="Exiled.API.Features.Items.Item"/> can be picked up.
         /// </summary>
         public bool CanBePickedUp { get; set; } = true;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a item spawn point at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnItemSpawnPoint(this));
+        }
     }
 }

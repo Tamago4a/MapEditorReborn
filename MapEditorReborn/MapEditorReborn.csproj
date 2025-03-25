@@ -8,6 +8,15 @@
     <AssemblyName>MapEditorReborn</AssemblyName>
     <RootNamespace>MapEditorReborn</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExMod.Exiled" Version="9.0.1" />
+    <PackageReference Include="ExMod.Exiled" Version="9.5.1" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
 

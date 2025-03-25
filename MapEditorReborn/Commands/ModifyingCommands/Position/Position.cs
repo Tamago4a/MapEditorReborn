@@ -7,11 +7,11 @@
 
 namespace MapEditorReborn.Commands.ModifyingCommands.Position
 {
-    using System;
     using API.Features.Objects;
     using CommandSystem;
     using Exiled.API.Features;
     using SubCommands;
+    using System;
     using static API.API;
 
     /// <summary>
@@ -32,9 +32,6 @@ namespace MapEditorReborn.Commands.ModifyingCommands.Position
 
         /// <inheritdoc/>
         public override string Description => "Modifies object's posistion.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public override void LoadGeneratedCommands()

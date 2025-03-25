@@ -7,12 +7,12 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
     using API.Features.Serializable;
     using CommandSystem;
     using Events.EventArgs;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
     using static API.API;
     using Map = global::MapEditorReborn.Events.Handlers.Map;
 
@@ -29,9 +29,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Unloads currently loaded map.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

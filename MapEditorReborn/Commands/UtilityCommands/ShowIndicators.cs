@@ -7,15 +7,15 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using API.Extensions;
     using API.Features.Objects;
     using CommandSystem;
     using Events.Handlers.Internal;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using static API.API;
 
     /// <summary>
@@ -31,9 +31,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Shows indicators for both player and item spawn points.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

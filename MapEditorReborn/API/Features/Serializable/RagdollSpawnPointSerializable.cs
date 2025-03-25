@@ -7,16 +7,19 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using PlayerRoles;
+    using System;
     using UnityEngine;
     using YamlDotNet.Serialization;
+    using static API;
 
     /// <summary>
     /// A tool to spawn and save RagdollSpawnPoints to a file.
     /// </summary>
     [Serializable]
-    public class RagdollSpawnPointSerializable : SerializableObject
+    public class RagdollSpawnPointSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the name of the ragdoll to spawned.
@@ -41,5 +44,12 @@ namespace MapEditorReborn.API.Features.Serializable
 
         [YamlIgnore]
         public override Vector3 Scale { get; set; }
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a ragdoll spawn point at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnRagdollSpawnPoint(this));
+        }
     }
 }

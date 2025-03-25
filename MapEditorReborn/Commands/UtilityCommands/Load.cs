@@ -7,13 +7,13 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
     using API.Features;
     using API.Features.Serializable;
     using CommandSystem;
     using Events.EventArgs;
     using Events.Handlers;
     using Exiled.Permissions.Extensions;
+    using System;
     using static API.API;
 
     /// <summary>
@@ -29,9 +29,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Loads the map.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -67,8 +64,8 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
             CurrentLoadedMap = map;
 
-            response = map.IsValid ? $"You've successfully loaded map named {arguments.At(0)}!" : $"{arguments.At(0)} couldn't be loaded because one of it's object is in RoomType that didn't spawn this round!";
-            return map.IsValid;
+            response = $"You've successfully loaded map named {arguments.At(0)}!";
+            return true;
         }
     }
 }

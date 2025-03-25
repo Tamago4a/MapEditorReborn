@@ -7,10 +7,10 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Diagnostics;
     using CommandSystem;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Diagnostics;
 
     /// <summary>
     /// Command used for opening folder in which maps are stored.
@@ -25,9 +25,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Opens the MapEditorParent directory.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

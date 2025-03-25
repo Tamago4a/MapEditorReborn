@@ -7,13 +7,16 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using Enums;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
+    using Interactables.Interobjects.DoorUtils;
     using System;
     using System.Collections.Generic;
-    using Enums;
-    using Interactables.Interobjects.DoorUtils;
     using Utf8Json;
+    using static API;
 
-    public class LockerSerializable : SerializableObject
+    public class LockerSerializable : SerializableObject, ISpawnManager
     {
         public LockerSerializable()
         {
@@ -33,7 +36,7 @@ namespace MapEditorReborn.API.Features.Serializable
 
         public LockerType LockerType { get; set; }
 
-        public Dictionary<int, List<LockerItemSerializable>> Chambers { get; set; } = new ()
+        public Dictionary<int, List<LockerItemSerializable>> Chambers { get; set; } = new()
         {
             { 0, new () { new () } },
         };
@@ -70,5 +73,12 @@ namespace MapEditorReborn.API.Features.Serializable
         public bool InteractLock { get; set; }
 
         public float Chance { get; set; } = 100f;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a locker at {this.Position}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnLocker(this));
+        }
     }
 }

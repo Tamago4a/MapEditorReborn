@@ -7,16 +7,19 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System;
     using Enums;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
+    using System;
     using UnityEngine;
     using YamlDotNet.Serialization;
+    using static API;
 
     /// <summary>
     /// A tool used to spawn and save PlayerSpawnPoints to a file.
     /// </summary>
     [Serializable]
-    public class PlayerSpawnPointSerializable : SerializableObject
+    public class PlayerSpawnPointSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the <see cref="PlayerSpawnPointSerializable"/>'s <see cref="Enums.SpawnableTeam"/>.
@@ -29,5 +32,11 @@ namespace MapEditorReborn.API.Features.Serializable
         [YamlIgnore]
         public override Vector3 Scale { get; set; }
 
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a player spawn point at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnPlayerSpawnPoint(this));
+        }
     }
 }

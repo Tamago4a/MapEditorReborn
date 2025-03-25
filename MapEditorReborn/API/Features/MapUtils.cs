@@ -7,10 +7,8 @@
 
 namespace MapEditorReborn.API.Features
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
     using Events.Handlers.Internal;
+    using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.Loader;
     using MEC;
@@ -19,10 +17,12 @@ namespace MapEditorReborn.API.Features
     using Objects.Vanilla;
     using Serializable;
     using Serializable.Vanilla;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
     using Utf8Json;
     using static API;
-    using Config = global::MapEditorReborn.Configs.Config;
-    using Random = UnityEngine.Random;
+    using Config = Configs.Config;
 
     /// <summary>
     /// A class which contains a few useful methods to interact with maps.
@@ -59,12 +59,6 @@ namespace MapEditorReborn.API.Features
         /// <param name="map"><see cref="Serializable.MapSchematic"/> to load.</param>
         public static void LoadMap(MapSchematic? map)
         {
-            if (map is not null && !map.IsValid)
-            {
-                Log.Warn($"{map.Name} couldn't be loaded because one of it's object is in RoomType that didn't spawn this round!");
-                return;
-            }
-
             API.MapSchematic = map;
 
             Log.Debug(map is not null ? "Trying to load the map..." : "Trying to unload the map..");
@@ -111,117 +105,18 @@ namespace MapEditorReborn.API.Features
             Log.Debug("Setting custom properties for vanilla tesla gates...");
             VanillaTeslaHandler.RegisterEvents();
 
-            foreach (DoorSerializable door in map.Doors)
-            {
-                Log.Debug($"Trying to spawn door at {door.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnDoor(door));
-            }
-
-            if (map.Doors.Count > 0)
-                Log.Debug("All doors have been successfully spawned!");
-
-            foreach (WorkstationSerializable workstation in map.WorkStations)
-            {
-                Log.Debug($"Spawning workstation at {workstation.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnWorkstation(workstation));
-            }
-
-            if (map.WorkStations.Count > 0)
-                Log.Debug("All workstations have been successfully spawned!");
-
-            foreach (ItemSpawnPointSerializable itemSpawnPoint in map.ItemSpawnPoints)
-            {
-                Log.Debug($"Trying to spawn a item spawn point at {itemSpawnPoint.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnItemSpawnPoint(itemSpawnPoint));
-            }
-
-            if (map.ItemSpawnPoints.Count > 0)
-                Log.Debug("All item spawn points have been spawned!");
-
-            foreach (PlayerSpawnPointSerializable playerSpawnPoint in map.PlayerSpawnPoints)
-            {
-                Log.Debug($"Trying to spawn a player spawn point at {playerSpawnPoint.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnPlayerSpawnPoint(playerSpawnPoint));
-            }
-
-            if (map.PlayerSpawnPoints.Count > 0)
-                Log.Debug("All player spawn points have been spawned!");
-
-            // PlayerSpawnPointObject.VanillaSpawnPointsDisabled = map.RemoveDefaultSpawnPoints;
-
-            foreach (RagdollSpawnPointSerializable ragdollSpawnPoint in map.RagdollSpawnPoints)
-            {
-                Log.Debug($"Trying to spawn a ragdoll spawn point at {ragdollSpawnPoint.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnRagdollSpawnPoint(ragdollSpawnPoint));
-            }
-
-            if (map.RagdollSpawnPoints.Count > 0)
-                Log.Debug("All ragdoll spawn points have been spawned!");
-
-            foreach (ShootingTargetSerializable shootingTargetObject in map.ShootingTargets)
-            {
-                Log.Debug($"Trying to spawn a shooting target at {shootingTargetObject.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnShootingTarget(shootingTargetObject));
-            }
-
-            if (map.ShootingTargets.Count > 0)
-                Log.Debug("All shooting targets have been spawned!");
-
-            foreach (PrimitiveSerializable primitiveObject in map.Primitives)
-            {
-                SpawnedObjects.Add(ObjectSpawner.SpawnPrimitive(primitiveObject));
-            }
-
-            foreach (RoomLightSerializable lightControllerObject in map.RoomLights)
-            {
-                Log.Debug($"Trying to spawn a light controller at {lightControllerObject.RoomType}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnRoomLight(lightControllerObject));
-            }
-
-            if (map.RoomLights.Count > 0)
-                Log.Debug("All light controllers have been spawned!");
-
-            foreach (LightSourceSerializable lightSourceObject in map.LightSources)
-            {
-                SpawnedObjects.Add(ObjectSpawner.SpawnLightSource(lightSourceObject));
-            }
-
-            foreach (SerializableTeleport teleportObject in map.Teleports)
-            {
-                Log.Debug($"Trying to spawn a teleporter at {teleportObject.Position}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnTeleport(teleportObject));
-            }
-
-            if (map.Teleports.Count > 0)
-                Log.Debug("All teleporters have been spawned!");
-
-            foreach (LockerSerializable lockerSerializable in map.Lockers)
-            {
-                Log.Debug($"Trying to spawn a locker at {lockerSerializable.Position}...");
-                SpawnedObjects.Add(ObjectSpawner.SpawnLocker(lockerSerializable));
-            }
-
-            if (map.Lockers.Count > 0)
-                Log.Debug("All lockers have been spawned!");
-
-            foreach (SchematicSerializable schematicObject in map.Schematics)
-            {
-                Log.Debug($"Trying to spawn a schematic named \"{schematicObject.SchematicName}\" at {schematicObject.RoomType}... ({schematicObject.Position.x}, {schematicObject.Position.y}, {schematicObject.Position.z})");
-                MapEditorObject schematic = ObjectSpawner.SpawnSchematic(schematicObject, null, null, null, null);
-
-                if (schematic == null)
-                {
-                    Log.Warn($"The schematic with \"{schematicObject.SchematicName}\" name does not exist or has an invalid name. Skipping...");
-                    continue;
-                }
-
-                SpawnedObjects.Add(schematic);
-            }
-
-            if (map.Schematics.Count > 0)
-                Log.Debug("All schematics have been spawned!");
-
+            map.GetSerializedObjects().ForEach(x => x.TryAddSpawnObject());
             Log.Debug("All GameObject have been spawned and the MapSchematic has been fully loaded!");
+        }
+
+        public static bool IsRoomExist(RoomType roomType)
+        {
+            if (!API.SpawnedRoomTypes.Contains(roomType))
+            {
+                Log.Debug($"There are no rooms on the map with the type: {roomType}. This object will not be added.");
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -458,7 +353,7 @@ namespace MapEditorReborn.API.Features
         /// <returns>A new <see cref="MapSchematic"/> object that contains all of the elements from the input maps.</returns>
         public static MapSchematic MergeMaps(string name, List<MapSchematic> maps)
         {
-            MapSchematic outputMap = new (name);
+            MapSchematic outputMap = new(name);
 
             foreach (MapSchematic map in maps)
             {
@@ -491,26 +386,19 @@ namespace MapEditorReborn.API.Features
 
             List<string> mapNamesCopy = ListPool<string>.Shared.Rent(mapNames);
             mapNamesCopy.Remove(UnloadKeyword);
-
-            do
+            if (mapNamesCopy.Count == 0)
             {
-                string chosenMapName = mapNamesCopy[Random.Range(0, mapNamesCopy.Count)];
+                ListPool<string>.Shared.Return(mapNamesCopy);
+                return mapNames.Contains(UnloadKeyword);
+            }
+            else
+            {
+                string chosenMapName = mapNamesCopy.RandomItem();
                 MapSchematic chosenMap = GetMapByName(chosenMapName);
-
-                if (chosenMap is not {IsValid: true})
-                {
-                    mapNamesCopy.Remove(chosenMapName);
-                    continue;
-                }
-
                 mapSchematic = chosenMap;
                 ListPool<string>.Shared.Return(mapNamesCopy);
                 return true;
             }
-            while (mapNamesCopy.Count > 0);
-
-            ListPool<string>.Shared.Return(mapNamesCopy);
-            return mapNames.Contains(UnloadKeyword);
         }
 
         private const string UnloadKeyword = "UNLOAD";

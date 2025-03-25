@@ -7,13 +7,16 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using System;
+    using static API;
 
     /// <summary>
     /// A tool used to spawn and save Workstations to a file.
     /// </summary>
     [Serializable]
-    public class WorkstationSerializable : SerializableObject
+    public class WorkstationSerializable : SerializableObject, ISpawnManager
     {
         public WorkstationSerializable()
         {
@@ -33,5 +36,12 @@ namespace MapEditorReborn.API.Features.Serializable
         /// Gets or sets a value indicating whether the player can interact with the <see cref="WorkstationSerializable"/>.
         /// </summary>
         public bool IsInteractable { get; set; } = true;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a workstation at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnWorkstation(this));
+        }
     }
 }

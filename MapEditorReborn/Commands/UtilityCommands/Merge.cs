@@ -1,15 +1,15 @@
 ﻿
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
     using API.Features;
     using API.Features.Serializable;
     using CommandSystem;
     using Exiled.API.Features.Pools;
     using Exiled.Loader;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
 
     /// <summary>
     /// Merges two or more <see cref="MapSchematic"/>s into one.
@@ -24,9 +24,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Merges two or more maps into one.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

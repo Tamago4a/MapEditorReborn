@@ -7,17 +7,20 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System;
     using Enums;
     using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using Interactables.Interobjects.DoorUtils;
+    using System;
+    using static API;
     using KeycardPermissions = Interactables.Interobjects.DoorUtils.KeycardPermissions;
 
     /// <summary>
     /// Represents <see cref="DoorVariant"/> used by the plugin to spawn and save doors to a file.
     /// </summary>
     [Serializable]
-    public class DoorSerializable : SerializableObject
+    public class DoorSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the door <see cref="DoorType"/>.
@@ -50,5 +53,12 @@ namespace MapEditorReborn.API.Features.Serializable
         public float DoorHealth { get; set; } = 150f;
 
         public LockOnEvent LockOnEvent { get; set; } = LockOnEvent.None;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a door at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnDoor(this));
+        }
     }
 }

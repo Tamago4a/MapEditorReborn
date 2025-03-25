@@ -7,13 +7,13 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Linq;
     using API.Enums;
     using CommandSystem;
     using Exiled.API.Features;
     using Exiled.API.Features.Items;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Linq;
     using static API.API;
 
     public class GravityGun : ICommand
@@ -26,9 +26,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Gravity gun for picking up and throwing around schematics.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

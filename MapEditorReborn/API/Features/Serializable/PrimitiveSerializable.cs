@@ -7,15 +7,18 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System;
     using AdminToys;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
+    using System;
     using UnityEngine;
+    using static API;
 
     /// <summary>
     /// A tool used to easily handle primitives.
     /// </summary>
     [Serializable]
-    public class PrimitiveSerializable : SerializableObject
+    public class PrimitiveSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PrimitiveSerializable"/> class.
@@ -82,5 +85,12 @@ namespace MapEditorReborn.API.Features.Serializable
         public PrimitiveFlags PrimitiveFlags { get; set; } = (PrimitiveFlags)3;
 
         public bool Static;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a primitive at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnPrimitive(this));
+        }
     }
 }

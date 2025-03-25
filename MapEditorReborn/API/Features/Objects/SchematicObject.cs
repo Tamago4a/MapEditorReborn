@@ -7,12 +7,6 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
-    using System.IO;
-    using System.Linq;
     using AdminToys;
     using Configs;
     using Enums;
@@ -27,6 +21,12 @@ namespace MapEditorReborn.API.Features.Objects
     using InventorySystem.Items.Firearms.Attachments;
     using Mirror;
     using Serializable;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.IO;
+    using System.Linq;
     using UnityEngine;
     using Utf8Json;
     using LockerType = Enums.LockerType;
@@ -63,42 +63,42 @@ namespace MapEditorReborn.API.Features.Objects
 
             // if (Config.SchematicBlockSpawnDelay >= 0f)
             // {
-                // Timing.RunCoroutine(SpawnDelayed());
+            // Timing.RunCoroutine(SpawnDelayed());
             //}
             // else
             // {
-                foreach (NetworkIdentity networkIdentity in NetworkIdentities)
-                    NetworkServer.Spawn(networkIdentity.gameObject);
+            foreach (NetworkIdentity networkIdentity in NetworkIdentities)
+                NetworkServer.Spawn(networkIdentity.gameObject);
 
-                // if (!AddAnimators() && isStatic)
-                // {
-                    // Log.Debug($"Schematic {Name} has no animators, making it static...");
-                    // IsStatic = true;
-                // }
+            // if (!AddAnimators() && isStatic)
+            // {
+            // Log.Debug($"Schematic {Name} has no animators, making it static...");
+            // IsStatic = true;
+            // }
 
-                IsBuilt = true;
+            IsBuilt = true;
             // }
 
             bool hasRigidbodies = AddRigidbodies();
             bool isAnimated = AddAnimators();
 
-/*
-            if ((hasRigidbodies || isAnimated) && isStatic)
-            {
-                IsStatic = false;
-            }
-            else
-            {
-                IsStatic = isStatic;
-                if (IsStatic)
-                    Log.Debug($"Schematic {Name} has no animators, making it static...");
-            }
-            */
+            /*
+                        if ((hasRigidbodies || isAnimated) && isStatic)
+                        {
+                            IsStatic = false;
+                        }
+                        else
+                        {
+                            IsStatic = isStatic;
+                            if (IsStatic)
+                                Log.Debug($"Schematic {Name} has no animators, making it static...");
+                        }
+                        */
 
             // bool value = !isAnimated && isStatic;
             // IsStatic = value;
             // if (value)
-                // Log.Debug($"Schematic {Name} has no animators, making it static...");
+            // Log.Debug($"Schematic {Name} has no animators, making it static...");
 
             AttachedBlocks.CollectionChanged += OnCollectionChanged;
             UpdateObject();
@@ -273,7 +273,7 @@ namespace MapEditorReborn.API.Features.Objects
             // }
 
             // if (!IsRootSchematic)
-                // return;
+            // return;
 
             // Timing.CallDelayed(0.1f, () => Patches.OverridePositionPatch.ResetValues());
         }
@@ -310,152 +310,152 @@ namespace MapEditorReborn.API.Features.Objects
             switch (block.BlockType)
             {
                 case BlockType.Empty:
-                {
-                    gameObject = new GameObject(block.Name)
                     {
-                        transform =
+                        gameObject = new GameObject(block.Name)
+                        {
+                            transform =
                         {
                             parent = parentTransform,
                             localPosition = block.Position,
                             localEulerAngles = block.Rotation,
                             localScale = Vector3.one,
                         },
-                    };
-
-                    break;
-                }
-
-                case BlockType.Primitive:
-                {
-                    if (Instantiate(ObjectType.Primitive.GetObjectByMode(), parentTransform).TryGetComponent(out PrimitiveObjectToy primitiveToy))
-                    {
-                        gameObject = primitiveToy.gameObject.AddComponent<PrimitiveObject>().Init(block).gameObject;
-                    }
-
-                    break;
-                }
-
-                case BlockType.Light:
-                {
-                    if (Instantiate(ObjectType.LightSource.GetObjectByMode(), parentTransform).TryGetComponent(out LightSourceToy lightSourceToy))
-                    {
-                        gameObject = lightSourceToy.gameObject.AddComponent<LightSourceObject>().Init(block).gameObject;
-
-                        if (TryGetAnimatorController(block.AnimatorName, out animatorController))
-                            _animators.Add(lightSourceToy._light.gameObject, animatorController);
-                    }
-
-                    break;
-                }
-
-                case BlockType.Pickup:
-                {
-                    Pickup pickup = null;
-
-                    if (block.Properties.TryGetValue("Chance", out object property) && Random.Range(0, 101) > float.Parse(property.ToString()))
-                    {
-                        gameObject = new("Empty Pickup")
-                        {
-                            transform = { parent = parentTransform, localPosition = block.Position, localEulerAngles = block.Rotation, localScale = block.Scale },
                         };
+
                         break;
                     }
 
-                    if (block.Properties.TryGetValue("CustomItem", out property) && !string.IsNullOrEmpty(property.ToString()))
+                case BlockType.Primitive:
                     {
-                        string customItemName = property.ToString();
-
-                        if (!CustomItem.TryGet(customItemName, out CustomItem customItem))
+                        if (Instantiate(ObjectType.Primitive.GetObjectByMode(), parentTransform).TryGetComponent(out PrimitiveObjectToy primitiveToy))
                         {
-                            Log.Error($"CustomItem with the name {customItemName} does not exist!");
-                            gameObject = new("Invalid Pickup")
+                            gameObject = primitiveToy.gameObject.AddComponent<PrimitiveObject>().Init(block).gameObject;
+                        }
+
+                        break;
+                    }
+
+                case BlockType.Light:
+                    {
+                        if (Instantiate(ObjectType.LightSource.GetObjectByMode(), parentTransform).TryGetComponent(out LightSourceToy lightSourceToy))
+                        {
+                            gameObject = lightSourceToy.gameObject.AddComponent<LightSourceObject>().Init(block).gameObject;
+
+                            if (TryGetAnimatorController(block.AnimatorName, out animatorController))
+                                _animators.Add(lightSourceToy._light.gameObject, animatorController);
+                        }
+
+                        break;
+                    }
+
+                case BlockType.Pickup:
+                    {
+                        Pickup pickup = null;
+
+                        if (block.Properties.TryGetValue("Chance", out object property) && Random.Range(0, 101) > float.Parse(property.ToString()))
+                        {
+                            gameObject = new("Empty Pickup")
                             {
                                 transform = { parent = parentTransform, localPosition = block.Position, localEulerAngles = block.Rotation, localScale = block.Scale },
                             };
+                            break;
+                        }
 
-                            AttachedBlocks.Add(gameObject);
-                            ObjectFromId.Add(block.ObjectId, gameObject.transform);
+                        if (block.Properties.TryGetValue("CustomItem", out property) && !string.IsNullOrEmpty(property.ToString()))
+                        {
+                            string customItemName = property.ToString();
+
+                            if (!CustomItem.TryGet(customItemName, out CustomItem customItem))
+                            {
+                                Log.Error($"CustomItem with the name {customItemName} does not exist!");
+                                gameObject = new("Invalid Pickup")
+                                {
+                                    transform = { parent = parentTransform, localPosition = block.Position, localEulerAngles = block.Rotation, localScale = block.Scale },
+                                };
+
+                                AttachedBlocks.Add(gameObject);
+                                ObjectFromId.Add(block.ObjectId, gameObject.transform);
+                            }
+                            else
+                            {
+                                pickup = customItem.Spawn(Vector3.zero);
+                            }
                         }
                         else
                         {
-                            pickup = customItem.Spawn(Vector3.zero);
+                            Item item = Item.Create((ItemType)Enum.Parse(typeof(ItemType), block.Properties["ItemType"].ToString()));
+
+                            if (item is Firearm firearm && block.Properties.TryGetValue("Attachements", out property))
+                                firearm.AddAttachment(property as List<AttachmentName>);
+
+                            pickup = item.CreatePickup(Vector3.zero);
                         }
-                    }
-                    else
-                    {
-                        Item item = Item.Create((ItemType)Enum.Parse(typeof(ItemType), block.Properties["ItemType"].ToString()));
 
-                        if (item is Firearm firearm && block.Properties.TryGetValue("Attachements", out property))
-                            firearm.AddAttachment(property as List<AttachmentName>);
+                        gameObject = pickup.Base.gameObject;
+                        gameObject.name = block.Name;
 
-                        pickup = item.CreatePickup(Vector3.zero);
-                    }
+                        NetworkServer.UnSpawn(gameObject);
 
-                    gameObject = pickup.Base.gameObject;
-                    gameObject.name = block.Name;
+                        gameObject.transform.parent = parentTransform;
+                        gameObject.transform.localPosition = block.Position;
+                        gameObject.transform.localEulerAngles = block.Rotation;
+                        gameObject.transform.localScale = block.Scale;
 
-                    NetworkServer.UnSpawn(gameObject);
-
-                    gameObject.transform.parent = parentTransform;
-                    gameObject.transform.localPosition = block.Position;
-                    gameObject.transform.localEulerAngles = block.Rotation;
-                    gameObject.transform.localScale = block.Scale;
-
-                    NetworkServer.Spawn(gameObject);
-
-                    if (block.Properties.ContainsKey("Locked"))
-                        API.PickupsLocked.Add(pickup.Serial);
-
-                    if (block.Properties.TryGetValue("Uses", out property))
-                        API.PickupsUsesLeft.Add(pickup.Serial, int.Parse(property.ToString()));
-
-                    break;
-                }
-
-                case BlockType.Workstation:
-                {
-                    if (Instantiate(ObjectType.WorkStation.GetObjectByMode(), parentTransform).TryGetComponent(out WorkstationController workstation))
-                    {
-                        gameObject = workstation.gameObject.AddComponent<WorkstationObject>().Init(block).gameObject;
-
-                        gameObject.transform.parent = null;
                         NetworkServer.Spawn(gameObject);
 
-                        _transformProperties.Add(gameObject.transform.GetInstanceID(), block.ObjectId);
+                        if (block.Properties.ContainsKey("Locked"))
+                            API.PickupsLocked.Add(pickup.Serial);
+
+                        if (block.Properties.TryGetValue("Uses", out property))
+                            API.PickupsUsesLeft.Add(pickup.Serial, int.Parse(property.ToString()));
+
+                        break;
                     }
 
-                    break;
-                }
+                case BlockType.Workstation:
+                    {
+                        if (Instantiate(ObjectType.WorkStation.GetObjectByMode(), parentTransform).TryGetComponent(out WorkstationController workstation))
+                        {
+                            gameObject = workstation.gameObject.AddComponent<WorkstationObject>().Init(block).gameObject;
+
+                            gameObject.transform.parent = null;
+                            NetworkServer.Spawn(gameObject);
+
+                            _transformProperties.Add(gameObject.transform.GetInstanceID(), block.ObjectId);
+                        }
+
+                        break;
+                    }
 
                 case BlockType.Locker:
-                {
-                    if (block.Properties.TryGetValue("Chance", out object property) && Random.Range(0, 101) > float.Parse(property.ToString()))
                     {
-                        gameObject = new("Empty Locker")
+                        if (block.Properties.TryGetValue("Chance", out object property) && Random.Range(0, 101) > float.Parse(property.ToString()))
                         {
-                            transform = { localPosition = block.Position, localEulerAngles = block.Rotation, localScale = block.Scale },
-                        };
-                    }
-                    else
-                    {
-                        LockerType lockerType = (LockerType)Enum.Parse(typeof(LockerType), block.Properties["LockerType"].ToString());
-                        gameObject = Instantiate(lockerType.GetLockerObjectByType(), parentTransform).AddComponent<LockerObject>().Init(block).gameObject;
-                    }
+                            gameObject = new("Empty Locker")
+                            {
+                                transform = { localPosition = block.Position, localEulerAngles = block.Rotation, localScale = block.Scale },
+                            };
+                        }
+                        else
+                        {
+                            LockerType lockerType = (LockerType)Enum.Parse(typeof(LockerType), block.Properties["LockerType"].ToString());
+                            gameObject = Instantiate(lockerType.GetLockerObjectByType(), parentTransform).AddComponent<LockerObject>().Init(block).gameObject;
+                        }
 
-                    break;
-                }
+                        break;
+                    }
 
                 case BlockType.Schematic:
-                {
-                    string schematicName = block.Properties["SchematicName"].ToString();
+                    {
+                        string schematicName = block.Properties["SchematicName"].ToString();
 
-                    gameObject = ObjectSpawner.SpawnSchematic(schematicName, transform.position + block.Position, Quaternion.Euler(transform.eulerAngles + block.Rotation), null, null, true).gameObject;
-                    gameObject.transform.parent = parentTransform;
+                        gameObject = ObjectSpawner.SpawnSchematic(schematicName, transform.position + block.Position, Quaternion.Euler(transform.eulerAngles + block.Rotation), null, null, true).gameObject;
+                        gameObject.transform.parent = parentTransform;
 
-                    gameObject.name = schematicName;
+                        gameObject.name = schematicName;
 
-                    break;
-                }
+                        break;
+                    }
             }
 
             AttachedBlocks.Add(gameObject);

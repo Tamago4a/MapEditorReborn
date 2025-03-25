@@ -7,11 +7,11 @@
 
 namespace MapEditorReborn.Commands.ModifyingCommands.Scale
 {
-    using System;
     using API.Features.Objects;
     using CommandSystem;
     using Exiled.API.Features;
     using SubCommands;
+    using System;
     using static API.API;
 
     /// <summary>
@@ -29,9 +29,6 @@ namespace MapEditorReborn.Commands.ModifyingCommands.Scale
 
         /// <inheritdoc/>
         public override string[] Aliases { get; } = { "scl" };
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public override string Description => "Modifies object's scale.";

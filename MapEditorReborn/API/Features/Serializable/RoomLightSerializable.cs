@@ -7,15 +7,18 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using System;
     using UnityEngine;
     using YamlDotNet.Serialization;
+    using static API;
 
     /// <summary>
     /// A tool used to spawn and save LightControllers to a file.
     /// </summary>
     [Serializable]
-    public class RoomLightSerializable : SerializableObject
+    public class RoomLightSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the <see cref="RoomLightSerializable"/>'s color.
@@ -42,5 +45,12 @@ namespace MapEditorReborn.API.Features.Serializable
 
         [YamlIgnore]
         public override Vector3 Scale { get; set; }
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a room light controller at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnRoomLight(this));
+        }
     }
 }

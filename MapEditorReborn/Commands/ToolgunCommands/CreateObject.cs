@@ -7,8 +7,6 @@
 
 namespace MapEditorReborn.Commands.ToolgunCommands
 {
-    using System;
-    using System.Linq;
     using API.Enums;
     using API.Extensions;
     using API.Features;
@@ -19,6 +17,8 @@ namespace MapEditorReborn.Commands.ToolgunCommands
     using Events.Handlers.Internal;
     using Exiled.API.Features;
     using Exiled.Permissions.Extensions;
+    using System;
+    using System.Linq;
     using UnityEngine;
     using static API.API;
 
@@ -35,9 +35,6 @@ namespace MapEditorReborn.Commands.ToolgunCommands
 
         /// <inheritdoc/>
         public string Description => "Creates a selected object at the point you are looking at.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

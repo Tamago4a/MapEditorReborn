@@ -7,14 +7,17 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System;
     using Exiled.API.Enums;
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
+    using System;
+    using static API;
 
     /// <summary>
     /// A tool used to spawn and save ShootingTargets to a file.
     /// </summary>
     [Serializable]
-    public class ShootingTargetSerializable : SerializableObject
+    public class ShootingTargetSerializable : SerializableObject, ISpawnManager
     {
         /// <summary>
         /// Gets or sets the <see cref="ShootingTargetSerializable"/>'s <see cref="ShootingTargetType"/>.
@@ -26,5 +29,12 @@ namespace MapEditorReborn.API.Features.Serializable
         /// <para>Example: plays CASSIE on shot.</para>
         /// </summary>
         public bool IsFunctional { get; set; } = true;
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a shooting target at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnShootingTarget(this));
+        }
     }
 }

@@ -7,14 +7,14 @@
 
 namespace MapEditorReborn.Commands.ModifyingCommands
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using API.Features.Serializable;
     using CommandSystem;
     using Exiled.Permissions.Extensions;
     using PlayerRoles;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using static API.API;
 
     /// <summary>
@@ -30,9 +30,6 @@ namespace MapEditorReborn.Commands.ModifyingCommands
 
         /// <inheritdoc/>
         public string Description => "Allows modifying properties of the selected map.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)

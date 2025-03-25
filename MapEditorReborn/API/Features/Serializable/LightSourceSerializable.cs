@@ -7,15 +7,18 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
+    using Exiled.API.Features;
+    using global::MapEditorReborn.Interfaces;
     using System;
     using UnityEngine;
     using YamlDotNet.Serialization;
+    using static API;
 
     /// <summary>
     /// A tool used to easily handle light sources.
     /// </summary>
     [Serializable]
-    public class LightSourceSerializable : SerializableObject
+    public class LightSourceSerializable : SerializableObject, ISpawnManager
     {
         public LightSourceSerializable()
         {
@@ -60,5 +63,12 @@ namespace MapEditorReborn.API.Features.Serializable
         [YamlIgnore] public override Vector3 Rotation { get; set; }
 
         [YamlIgnore] public override Vector3 Scale { get; set; }
+
+        public void TryAddSpawnObject()
+        {
+            Log.Debug($"Trying to spawn a light source controller at {this.RoomType}.");
+            if (!MapUtils.IsRoomExist(this.RoomType)) return;
+            SpawnedObjects.Add(ObjectSpawner.SpawnLightSource(this));
+        }
     }
 }

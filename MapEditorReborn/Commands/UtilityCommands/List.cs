@@ -7,17 +7,17 @@
 
 namespace MapEditorReborn.Commands.UtilityCommands
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
     using API.Enums;
     using API.Features.Serializable;
     using CommandSystem;
     using Exiled.Loader;
     using Exiled.Permissions.Extensions;
     using NorthwoodLib.Pools;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
     using Utf8Json;
 
     /// <summary>
@@ -33,9 +33,6 @@ namespace MapEditorReborn.Commands.UtilityCommands
 
         /// <inheritdoc/>
         public string Description => "Shows the list of all available maps.";
-
-        /// <inheritdoc/>
-        public bool SanitizeResponse => false;
 
         /// <inheritdoc/>
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -110,7 +107,7 @@ namespace MapEditorReborn.Commands.UtilityCommands
                     builder.AppendLine($"Teleports: <color=yellow><b>{map.Teleports.Count}</b></color>");
                     builder.AppendLine($"Lockers: <color=yellow><b>{map.Lockers.Count}</b></color>");
                     builder.AppendLine($"Schematics: <color=yellow><b>{map.Schematics.Count}</b></color>");
-                    builder.AppendLine($"Total number of objects: <color=yellow><b>{map.Doors.Count + map.WorkStations.Count + map.ItemSpawnPoints.Count + map.PlayerSpawnPoints.Count + map.RagdollSpawnPoints.Count + map.ShootingTargets.Count + map.RoomLights.Count + map.Primitives.Count + map.LightSources.Count + map.Teleports.Count + map.Schematics.Count}</b></color>");
+                    builder.AppendLine($"Total number of objects: <color=yellow><b>{map.Doors.Count + map.WorkStations.Count + map.ItemSpawnPoints.Count + map.PlayerSpawnPoints.Count + map.RagdollSpawnPoints.Count + map.ShootingTargets.Count + map.RoomLights.Count + map.Primitives.Count + map.LightSources.Count + map.Teleports.Count + map.Lockers.Count + map.Schematics.Count}</b></color>");
                 }
                 else
                 {
