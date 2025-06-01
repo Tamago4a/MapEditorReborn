@@ -7,12 +7,12 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System.Collections.Generic;
     using AdminToys;
     using Exiled.API.Enums;
     using Exiled.API.Features.Toys;
     using MEC;
     using Serializable;
+    using System.Collections.Generic;
     using UnityEngine;
 
     /// <summary>
@@ -39,7 +39,7 @@ namespace MapEditorReborn.API.Features.Objects
         public PrimitiveObject Init(PrimitiveSerializable primitiveSerializable)
         {
             Base = primitiveSerializable;
-			Primitive.AdminToyBase.syncInterval = 0.1f;
+            Primitive.AdminToyBase.syncInterval = 0.1f;
             // Primitive.MovementSmoothing = 60;
 
             ForcedRoomType = primitiveSerializable.RoomType == RoomType.Unknown ? FindRoom().Type : primitiveSerializable.RoomType;
@@ -107,7 +107,7 @@ namespace MapEditorReborn.API.Features.Objects
             _primitiveObjectToy.NetworkPrimitiveFlags = Base.PrimitiveFlags;
 
             // if (IsSchematicBlock)
-                // return;
+            // return;
 
             if (_primitiveObjectToy.NetworkIsStatic)
                 Timing.RunCoroutine(RefreshStatic());

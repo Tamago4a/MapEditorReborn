@@ -15,11 +15,11 @@ namespace MapEditorReborn.Events.Handlers
     /// </summary>
     public static class Schematic
     {
-        public static Event<SchematicSpawnedEventArgs> SchematicSpawned { get; set; } = new ();
+        public static Event<SchematicSpawnedEventArgs> SchematicSpawned { get; set; } = new();
 
-        public static Event<ButtonInteractedEventArgs> ButtonInteracted { get; set; } = new ();
+        public static Event<ButtonInteractedEventArgs> ButtonInteracted { get; set; } = new();
 
-        public static Event<SchematicDestroyedEventArgs> SchematicDestroyed { get; set; } = new ();
+        public static Event<SchematicDestroyedEventArgs> SchematicDestroyed { get; set; } = new();
 
         internal static void OnSchematicSpawned(SchematicSpawnedEventArgs ev) => SchematicSpawned.InvokeSafely(ev);
 

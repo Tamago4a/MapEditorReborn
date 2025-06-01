@@ -7,7 +7,6 @@
 
 namespace MapEditorReborn.Events.Handlers.Internal
 {
-    using System.Linq;
     using API.Enums;
     using API.Extensions;
     using API.Features;
@@ -18,6 +17,7 @@ namespace MapEditorReborn.Events.Handlers.Internal
     using Exiled.API.Features.Items;
     using Exiled.Events.EventArgs.Player;
     using MEC;
+    using System.Linq;
     using UnityEngine;
     using static API.API;
 
@@ -266,7 +266,7 @@ namespace MapEditorReborn.Events.Handlers.Internal
         internal static bool TryGetMapObject(Player player, out MapEditorObject mapObject)
         {
             // List<Collider> tempColliders = NorthwoodLib.Pools.ListPool<Collider>.Shared.Rent();
-			/*
+            /*
             foreach (AdminToys.PrimitiveObjectToy primitive in Object.FindObjectsOfType<AdminToys.PrimitiveObjectToy>())
             {
                 if (primitive.TryGetComponent(out Collider collider) && !collider.enabled)
@@ -327,7 +327,7 @@ namespace MapEditorReborn.Events.Handlers.Internal
                 return mapObject != null;
             }
 
-			/*
+            /*
             foreach (Collider collider in tempColliders)
                 collider.enabled = false;
 

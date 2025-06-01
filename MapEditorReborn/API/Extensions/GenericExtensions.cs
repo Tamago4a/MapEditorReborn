@@ -7,13 +7,13 @@
 
 namespace MapEditorReborn.API.Extensions
 {
-    using System.Globalization;
     using Enums;
     using Exiled.API.Enums;
     using Exiled.API.Extensions;
     using Exiled.API.Features.Items;
     using Exiled.API.Features.Pickups;
     using InventorySystem.Items.Pickups;
+    using System.Globalization;
     using UnityEngine;
 
     /// <summary>

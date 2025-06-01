@@ -7,15 +7,15 @@
 
 namespace MapEditorReborn
 {
+    using Configs;
+    using Events.Handlers.Internal;
+    using Exiled.API.Features;
+    using HarmonyLib;
     using System;
     using System.IO;
     using System.IO.Compression;
     using System.Threading;
     using System.Threading.Tasks;
-    using Configs;
-    using Events.Handlers.Internal;
-    using Exiled.API.Features;
-    using HarmonyLib;
     using EventHandler = global::MapEditorReborn.Events.Handlers.Internal.EventHandler;
     using MapEvent = Exiled.Events.Handlers.Map;
     using PlayerEvent = Exiled.Events.Handlers.Player;

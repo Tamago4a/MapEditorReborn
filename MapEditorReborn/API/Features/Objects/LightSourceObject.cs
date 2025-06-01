@@ -57,7 +57,7 @@ namespace MapEditorReborn.API.Features.Objects
 
             Base = new(block);
             Light.MovementSmoothing = 60;
-			Light.AdminToyBase.syncInterval = 0.1f;
+            Light.AdminToyBase.syncInterval = 0.1f;
 
             UpdateObject();
             // IsStatic = true;
@@ -128,7 +128,7 @@ namespace MapEditorReborn.API.Features.Objects
 
         private void LateUpdate()
         {
-			_lightSourceToy.NetworkLightColor = _lightSourceToy._light.color;
+            _lightSourceToy.NetworkLightColor = _lightSourceToy._light.color;
             _lightSourceToy.NetworkLightIntensity = _lightSourceToy._light.intensity;
             _lightSourceToy.NetworkLightRange = _lightSourceToy._light.range;
             _lightSourceToy.NetworkShadowType = Base.Shadows ? LightShadows.Soft : LightShadows.None;

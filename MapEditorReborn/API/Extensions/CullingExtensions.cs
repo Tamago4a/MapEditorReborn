@@ -53,6 +53,6 @@ namespace MapEditorReborn.API.Extensions
         /// <param name="networkIdentity">The network identity to destroy.</param>
         public static void DestroyNetworkIdentity(this Player player, NetworkIdentity networkIdentity) =>
             player.Connection.Send(new ObjectDestroyMessage
-                { netId = networkIdentity.netId });
+            { netId = networkIdentity.netId });
     }
 }

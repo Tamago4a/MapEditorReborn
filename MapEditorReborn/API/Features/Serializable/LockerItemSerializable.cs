@@ -7,8 +7,8 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using System.Collections.Generic;
     using InventorySystem.Items.Firearms.Attachments;
+    using System.Collections.Generic;
 
     public class LockerItemSerializable
     {

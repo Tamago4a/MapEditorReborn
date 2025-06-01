@@ -7,7 +7,6 @@
 
 namespace MapEditorReborn.Events.Handlers.Internal
 {
-    using System.Collections.Generic;
     using API.Enums;
     using API.Extensions;
     using API.Features.Objects;
@@ -16,6 +15,7 @@ namespace MapEditorReborn.Events.Handlers.Internal
     using Exiled.API.Features.Items;
     using Exiled.Events.EventArgs.Player;
     using MEC;
+    using System.Collections.Generic;
     using UnityEngine;
     using static API.API;
 

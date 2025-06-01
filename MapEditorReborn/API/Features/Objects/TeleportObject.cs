@@ -7,9 +7,6 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Enums;
     using Events.EventArgs;
     using Events.Handlers;
@@ -19,6 +16,9 @@ namespace MapEditorReborn.API.Features.Objects
     using MEC;
     using Mirror;
     using Serializable;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
     using Map = Exiled.API.Features.Map;
     using Random = UnityEngine.Random;

@@ -1,11 +1,11 @@
 ﻿namespace MapEditorReborn.Events.Handlers.Internal
 {
-    using System.Linq;
     using API.Features.Serializable.Vanilla;
     using Exiled.API.Enums;
     using Exiled.Events.EventArgs.Player;
     using Exiled.Events.Handlers;
     using InventorySystem.Items;
+    using System.Linq;
     using static API.API;
     using Item = Exiled.API.Features.Items.Item;
 

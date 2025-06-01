@@ -7,13 +7,13 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System;
-    using System.Linq;
     using Components;
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Mirror;
     using Serializable;
+    using System;
+    using System.Linq;
     using UnityEngine;
 
     /// <summary>

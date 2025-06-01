@@ -1,7 +1,5 @@
 ﻿namespace MapEditorReborn.API.Features.Objects.Vanilla
 {
-    using System;
-    using System.Collections.Generic;
     using Exiled.API.Enums;
     using Exiled.API.Extensions;
     using Exiled.API.Features;
@@ -10,6 +8,8 @@
     using Mirror;
     using Serializable;
     using Serializable.Vanilla;
+    using System;
+    using System.Collections.Generic;
 
     public class VanillaDoorObject : DoorObject
     {
@@ -19,12 +19,12 @@
         public override DoorObject Init(DoorSerializable doorSerializable)
         {
             _breakableDoor = Door as BreakableDoor;
-            _vanillaBase = new(Door.IsOpen, Door.RequiredPermissions.RequiredPermissions, _breakableDoor?.IgnoredDamage ?? DoorDamageType.Weapon, _breakableDoor?.MaxHealth ?? 0f);
+            _vanillaBase = new(Door.IsOpen, Door.KeycardPermissions, _breakableDoor?.IgnoredDamage ?? DoorDamageType.Weapon, _breakableDoor?.MaxHealth ?? 0f);
             Base = doorSerializable;
 
             Door.IsOpen = doorSerializable.IsOpen;
             Door.ChangeLock(doorSerializable.IsLocked ? DoorLockType.SpecialDoorFeature : DoorLockType.None);
-            Door.RequiredPermissions.RequiredPermissions = doorSerializable.KeycardPermissions;
+            Door.KeycardPermissions = doorSerializable.KeycardPermissions;
             if (_breakableDoor != null)
             {
                 _breakableDoor.IgnoredDamage = doorSerializable.IgnoredDamageSources;
@@ -51,7 +51,7 @@
         {
             Door.IsOpen = _vanillaBase.IsOpen;
             Door.ChangeLock(DoorLockType.None);
-            Door.RequiredPermissions.RequiredPermissions = _vanillaBase.KeycardPermissions;
+            Door.KeycardPermissions = _vanillaBase.KeycardPermissions;
             if (_breakableDoor != null)
             {
                 _breakableDoor.IgnoredDamage = _vanillaBase.IgnoredDamageSources;

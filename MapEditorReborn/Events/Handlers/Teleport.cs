@@ -18,7 +18,7 @@ namespace MapEditorReborn.Events.Handlers
         /// <summary>
         /// Invoked before teleporting.
         /// </summary>
-        public static Event<TeleportingEventArgs> Teleporting { get; set; } = new ();
+        public static Event<TeleportingEventArgs> Teleporting { get; set; } = new();
 
         /// <summary>
         /// Called before teleporting.

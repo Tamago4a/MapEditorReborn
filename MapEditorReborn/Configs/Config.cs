@@ -7,9 +7,9 @@
 
 namespace MapEditorReborn.Configs
 {
-    using System.ComponentModel;
     using API.Enums;
     using Exiled.API.Interfaces;
+    using System.ComponentModel;
 
     /// <summary>
     /// The plugin's config.
@@ -62,7 +62,7 @@ namespace MapEditorReborn.Configs
         /// Gets a LoadMapOnEvent class.
         /// </summary>
         [Description("Option to load maps, when the specific event is called. If there are multiple maps, the random one will be choosen. Use UNLOAD to unload the map.")]
-        public LoadMapOnEvent LoadMapOnEvent { get; private set; } = new ();
+        public LoadMapOnEvent LoadMapOnEvent { get; private set; } = new();
 
         /// <summary>
         /// Gets the mode used for selecting maps when using LoadMapOnEvent.

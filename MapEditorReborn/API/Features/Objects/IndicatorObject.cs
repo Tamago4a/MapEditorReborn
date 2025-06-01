@@ -7,10 +7,10 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System.Collections.Generic;
     using AdminToys;
     using Exiled.API.Features.Toys;
     using MEC;
+    using System.Collections.Generic;
     using UnityEngine;
 
     /// <summary>

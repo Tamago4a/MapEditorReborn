@@ -7,7 +7,6 @@
 
 namespace MapEditorReborn.API.Extensions
 {
-    using System;
     using Enums;
     using Exiled.API.Features;
     using Exiled.API.Features.Pickups;
@@ -16,6 +15,7 @@ namespace MapEditorReborn.API.Extensions
     using InventorySystem.Items.Pickups;
     using MapGeneration.Distributors;
     using Mirror;
+    using System;
     using UnityEngine;
 
     /// <summary>
@@ -36,7 +36,7 @@ namespace MapEditorReborn.API.Extensions
 
                 if (Enum.TryParse(item, true, out ItemType parsedItem))
                 {
-                    if (parsedItem == ItemType.None) 
+                    if (parsedItem == ItemType.None)
                         return;
                     for (int i = 0; i < amount; i++)
                     {
@@ -45,23 +45,23 @@ namespace MapEditorReborn.API.Extensions
                         //Log.Debug($"Spawning Item {parsedItem} ({item}) Amount: ({amount})");
                         if (parsedItem == ItemType.SCP018)
                         {
-                            itemPickupBase = Scp018Projectile.CreateAndSpawn(parsedItem, lockerChamber._spawnpoint.position, lockerChamber._spawnpoint.rotation).Base;
+                            itemPickupBase = Scp018Projectile.CreateAndSpawn(parsedItem, lockerChamber.Spawnpoint.position, lockerChamber.Spawnpoint.rotation).Base;
 
                         }
                         else
                         {
-                            itemPickupBase = Pickup.CreateAndSpawn(parsedItem, lockerChamber._spawnpoint.position, lockerChamber._spawnpoint.rotation).Base;
+                            itemPickupBase = Pickup.CreateAndSpawn(parsedItem, lockerChamber.Spawnpoint.position, lockerChamber.Spawnpoint.rotation).Base;
                         }
                         NetworkServer.UnSpawn(itemPickupBase.gameObject);
 
-                        itemPickupBase.transform.SetParent(lockerChamber._spawnpoint);
+                        itemPickupBase.transform.SetParent(lockerChamber.Spawnpoint);
                         itemPickupBase.Info.Locked = true;
                         lockerChamber.Content.Add(itemPickupBase);
 
                         (itemPickupBase as IPickupDistributorTrigger)?.OnDistributed();
 
-                        if (lockerChamber._spawnOnFirstChamberOpening)
-                            lockerChamber._toBeSpawned.Add(itemPickupBase);
+                        if (lockerChamber.SpawnOnFirstChamberOpening)
+                            lockerChamber.ToBeSpawned.Add(itemPickupBase);
                         else
                             ItemDistributor.SpawnPickup(itemPickupBase);
                     }
@@ -73,18 +73,18 @@ namespace MapEditorReborn.API.Extensions
                 {
                     for (int i = 0; i < amount; i++)
                     {
-                        ItemPickupBase itemPickupBase = customItem.Spawn(lockerChamber._spawnpoint.position).Base;
+                        ItemPickupBase itemPickupBase = customItem.Spawn(lockerChamber.Spawnpoint.position).Base;
                         NetworkServer.UnSpawn(itemPickupBase.gameObject);
 
-                        itemPickupBase.transform.SetParent(lockerChamber._spawnpoint);
-                        itemPickupBase.transform.rotation = lockerChamber._spawnpoint.rotation;
+                        itemPickupBase.transform.SetParent(lockerChamber.Spawnpoint);
+                        itemPickupBase.transform.rotation = lockerChamber.Spawnpoint.rotation;
                         itemPickupBase.Info.Locked = true;
                         lockerChamber.Content.Add(itemPickupBase);
 
                         (itemPickupBase as IPickupDistributorTrigger)?.OnDistributed();
 
-                        if (lockerChamber._spawnOnFirstChamberOpening)
-                            lockerChamber._toBeSpawned.Add(itemPickupBase);
+                        if (lockerChamber.SpawnOnFirstChamberOpening)
+                            lockerChamber.ToBeSpawned.Add(itemPickupBase);
                         else
                             ItemDistributor.SpawnPickup(itemPickupBase);
                     }

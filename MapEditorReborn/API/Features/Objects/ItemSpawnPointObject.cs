@@ -7,8 +7,6 @@
 
 namespace MapEditorReborn.API.Features.Objects
 {
-    using System;
-    using System.Collections.Generic;
     using Exiled.API.Enums;
     using Exiled.API.Features;
     using Exiled.API.Features.Pickups;
@@ -17,6 +15,8 @@ namespace MapEditorReborn.API.Features.Objects
     using MEC;
     using Mirror;
     using Serializable;
+    using System;
+    using System.Collections.Generic;
     using UnityEngine;
     using static API;
     using FirearmPickup = InventorySystem.Items.Firearms.FirearmPickup;

@@ -1,8 +1,8 @@
 ﻿namespace MapEditorReborn
 {
+    using Exiled.API.Features;
     using System;
     using System.Threading;
-    using Exiled.API.Features;
 
     internal static class ServerCountHandler
     {

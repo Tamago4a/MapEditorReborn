@@ -7,14 +7,14 @@
 
 namespace MapEditorReborn.API.Features.Serializable
 {
-    using Enums;
+    using Exiled.API.Enums;
     using Exiled.API.Features;
     using global::MapEditorReborn.Interfaces;
-    using Interactables.Interobjects.DoorUtils;
     using System;
     using System.Collections.Generic;
     using Utf8Json;
     using static API;
+    using LockerType = Enums.LockerType;
 
     public class LockerSerializable : SerializableObject, ISpawnManager
     {
