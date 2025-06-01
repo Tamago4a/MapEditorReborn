@@ -4,6 +4,7 @@
     using Exiled.API.Extensions;
     using Exiled.API.Features;
     using Exiled.API.Features.Doors;
+    using Exiled.CreditTags;
     using Interactables.Interobjects.DoorUtils;
     using Mirror;
     using Serializable;
@@ -44,7 +45,8 @@
         {
             DoorNametagExtension.NamedDoors.Remove("049_GATE");
             DoorNametagExtension.NamedDoors.Add("049_GATE", null);
-            Door.Get(DoorType.Scp049Gate).Base.gameObject.AddComponent<DoorNametagExtension>()._nametag = "049_GATE";
+            var scp049gate = Door.Get(DoorType.Scp049Gate);
+            if (scp049gate is not null) scp049gate.Base.gameObject.AddComponent<DoorNametagExtension>()._nametag = "049_GATE";
         }
 
         private void SetToDefault()
